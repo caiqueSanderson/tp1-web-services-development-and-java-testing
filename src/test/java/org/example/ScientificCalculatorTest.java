@@ -10,14 +10,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ScientificCalculatorTest {
 
     private ScientificCalculator calculator;
+    private double numerator;
 
     @BeforeEach
     void setUp(){
         calculator = new ScientificCalculator();
     }
 
+    // ---------------------------
+    // Testes de operações básicas
+    // ---------------------------
+
     @Test
-    @DisplayName("Teste do metodo add")
+    @DisplayName("Soma de dois números positivos")
     void addTwoPositiveNumbers_shouldReturnTheirSum(){
         ScientificCalculator calculator = new ScientificCalculator();
         double actual = calculator.add(5,5);
@@ -25,8 +30,8 @@ public class ScientificCalculatorTest {
     }
 
     @Test
-    @DisplayName("Teste do metodo subtract")
-    void subtractTwoNumbersTen_shouldReturnTheNumberZero(){
+    @DisplayName("Subtração entre dois números iguais")
+    void subtractTwoEqualNumbers_shouldReturnTheNumberZero(){
         //ARRANGE ou SETUP
         ScientificCalculator calculator = new ScientificCalculator();
         double numberA = 10;
@@ -42,8 +47,12 @@ public class ScientificCalculatorTest {
         //CLEANUP ou TEARDOWN
     }
 
+    // ---------------------------
+    // Testes de funções matemáticas
+    // ---------------------------
+
     @Test
-    @DisplayName("Teste do metodo Square Root de um numero positivo")
+    @DisplayName("Raiz quadrada de número positivo")
     void squareRootOfPositiveNumber_shouldReturnCorrectValue(){
         //ARRANGE
         double a = 9.0;
@@ -57,33 +66,8 @@ public class ScientificCalculatorTest {
     }
 
     @Test
-    @DisplayName("Teste do method Square Root de um numero negativo")
-    void testSquareRootNegative(){
-        //ARRANGE
-        double a = -64.0;
-
-        //ACT + ASSERT
-        assertThrows(IllegalArgumentException.class, () -> {
-            calculator.squareRoot(a);
-        });
-    }
-
-    @Test
-    @DisplayName("Teste do method divide ao tentar dividir por zero")
-    void testDivideByZero(){
-        //ARRANGE
-        double numerator = 10.0;
-        double denominator = 0.0;
-
-        //ACT + ASSERT
-        assertThrows(IllegalArgumentException.class, () -> {
-            calculator.divide(numerator, denominator);
-        });
-    }
-
-    @Test
-    @DisplayName("Teste do method log com numero positivo")
-    void calculateLogValue_ShouldReturnPositiveNumber(){
+    @DisplayName("Logaritmo de e deve retornar 1")
+    void logOfEulerNumber_shouldReturnOne(){
         //ARRANGE
         double a = Math.E;
         double expected = 1.0;
@@ -96,7 +80,7 @@ public class ScientificCalculatorTest {
     }
 
     @Test
-    @DisplayName("Teste do method sin com numero positivo")
+    @DisplayName("Seno de 30 graus deve retornar 0.5")
     void calculateSinValue_ShouldReturnPositiveNumber(){
         //ARRANGE
         double a = 30.0;
@@ -107,5 +91,34 @@ public class ScientificCalculatorTest {
 
         //ASSERT
         Assertions.assertEquals(expected, actual,0.0001);
+    }
+
+    // ---------------------------
+    // Testes de tratamento de exceções
+    // ---------------------------
+
+    @Test
+    @DisplayName("Raiz quadrada de número negativo deve lançar exceção")
+    void squareRootOfNegativeNumber_shouldReturnException(){
+        //ARRANGE
+        double a = -64.0;
+
+        //ACT + ASSERT
+        assertThrows(IllegalArgumentException.class, () -> {
+            calculator.squareRoot(a);
+        });
+    }
+
+    @Test
+    @DisplayName("Divisão por zero deve lançar exceção")
+    void divideByZero_shouldThrowIllegalArgumentException() {
+        //ARRANGE
+        double numerator = 10.0;
+        double denominator = 0.0;
+
+        //ACT + ASSERT
+        assertThrows(IllegalArgumentException.class, () -> {
+            calculator.divide(numerator, denominator);
+        });
     }
 }
