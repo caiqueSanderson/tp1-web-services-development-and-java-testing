@@ -1,4 +1,4 @@
-package org.example;
+package org.example.tp1;
 
 public class ScientificCalculator {
     public double add(double a, double b) {
